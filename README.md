@@ -1,9 +1,8 @@
 # AsciiArtify
 
-PoC for choosing a local Kubernetes environment for AsciiArtify.
+PoC for choosing and validating a local Kubernetes and GitOps environment for AsciiArtify.
 
 ## Documentation
 
-See the detailed Kubernetes tools comparison and PoC decision:
-
-[📄 Kubernetes Local Development Concept](doc/Concept.md)
+- [Kubernetes Local Development Concept](doc/Concept.md)
+- [Argo CD Proof of Concept](doc/POC.md)
