@@ -245,21 +245,66 @@ For the initial AsciiArtify PoC, this does not outweigh the development advantag
 
 Based on the comparison and practical evaluation, **k3d was selected for the AsciiArtify PoC**.
 
-To demonstrate the proposed solution, a simple `nginx` Hello World application was deployed to Kubernetes.
+To validate the proposed local Kubernetes environment, a simple `nginx` application was deployed and accessed through a Kubernetes Service.
 
-The demo includes:
+The recorded demo includes:
 
 1. Creating the `asciiartify` k3d cluster.
-2. Verifying the Kubernetes node.
-3. Creating the `hello-world` deployment.
-4. Checking the deployment and pod.
-5. Creating a Kubernetes Service.
-6. Forwarding the service to localhost.
-7. Sending an HTTP request to verify the running application.
+2. Verifying that the k3s control-plane node is in the `Ready` state.
+3. Creating the `hello-world` deployment based on the `nginx` image.
+4. Verifying that the deployment is available and the pod is running.
+5. Exposing the deployment using a `ClusterIP` Kubernetes Service.
+6. Forwarding the service port to `localhost:8080`.
+7. Sending an HTTP request to the deployed application.
+8. Receiving the **Welcome to nginx!** response.
+9. Verifying the final state of the pod and service.
 
-### Demo recording
+### Demo result
 
-[![asciicast](https://asciinema.org/a/XTXnDSfAvlRm7njF.svg)](https://asciinema.org/a/XTXnDSfAvlRm7njF)
+The deployment was successfully created:
+
+```text
+NAME          READY   UP-TO-DATE   AVAILABLE
+hello-world   1/1     1            1
+```
+
+The application pod reached the `Running` state:
+
+```text
+NAME                           READY   STATUS    RESTARTS
+hello-world-86df7f6cdb-vggw8   1/1     Running   0
+```
+
+The application was exposed through a Kubernetes Service:
+
+```text
+NAME          TYPE        PORT(S)
+hello-world   ClusterIP   80/TCP
+```
+
+The service was forwarded to the local environment:
+
+```bash
+kubectl port-forward service/hello-world 8080:80
+```
+
+and verified with:
+
+```bash
+curl http://localhost:8080
+```
+
+The HTTP response contained:
+
+```html
+<h1>Welcome to nginx!</h1>
+```
+
+This confirms that the complete Kubernetes flow — **cluster → deployment → pod → service → application response** — works successfully in the selected k3d environment.
+
+### Recorded Demo
+
+[![asciicast](https://asciinema.org/a/EV8Fy1QBstTPLSnU.svg)](https://asciinema.org/a/EV8Fy1QBstTPLSnU)
 
 _Click the terminal preview to open the recorded demo._
 
