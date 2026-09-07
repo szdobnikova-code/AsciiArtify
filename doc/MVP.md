@@ -90,7 +90,7 @@ The demo verifies:
 - application workloads are running in the Kubernetes cluster;
 - the deployed application responds through the Ambassador API gateway.
 
-<!-- Add Demo 1 video here -->
+[Watch the application functionality demo](media/mvp-application-demo.mov)
 
 ## Demo 2 — Automatic Synchronization
 
@@ -136,7 +136,7 @@ kubectl get deployment go-demo-app-api -n demo
 
 After automatic synchronization, the API deployment contains one replica as defined in Git.
 
-<!-- Add Demo 2 video here -->
+[Watch the application functionality demo](media/mvp-auto-sync-demo.mov)
 
 ## Result
 
