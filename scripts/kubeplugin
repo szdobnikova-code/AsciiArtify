@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+# kubectl plugin for displaying CPU and memory usage of Kubernetes resources.
+#
+# Usage:
+#   kubectl kubeplugin <resource-type> <namespace>
+#
+# Example:
+#   kubectl kubeplugin pod kube-system
+#
+# To install locally as a kubectl plugin:
+#   chmod +x scripts/kubeplugin
+#   ln -s "$(pwd)/scripts/kubeplugin" /usr/local/bin/kubectl-kubeplugin
+
+set -euo pipefail
+
+RESOURCE_TYPE="${1:-}"
+NAMESPACE="${2:-}"
+
+if [[ -z "$RESOURCE_TYPE" || -z "$NAMESPACE" ]]; then
+  echo "Usage: kubectl kubeplugin <resource-type> <namespace>"
+  echo "Example: kubectl kubeplugin pod kube-system"
+  exit 1
+fi
+
+echo "Resource, Namespace, Name, CPU, Memory"
+
+kubectl top "$RESOURCE_TYPE" \
+  --namespace "$NAMESPACE" \
+  --no-headers |
+while read -r name cpu memory rest; do
+  echo "$RESOURCE_TYPE, $NAMESPACE, $name, $cpu, $memory"
+done
